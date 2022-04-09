@@ -1370,13 +1370,25 @@ TODO
 ### Spring 家族
 **Spring**
 * [Spring 简明教程](https://www.w3cschool.cn/wkspring/)
-
+* spring源码分析
+  
+  * spring初始化流程：因为是基于 java-config(jdk's @Resource?) 技术分析源码，所以这里的入口是 
+  AnnotationConfigApplicationContext ，如果是使用 xml 分析，那么入口即为 
+  ClassPathXmlApplicationContext ，它们俩的共同特征便是都继承了 AbstractApplicationContext 
+  类，而大名鼎鼎的 refresh 方法便是在这个类中定义的，现在就不剧透了，我们接着分析 AnnotationConfigApplicationContext 
+  类，可以绘制成如下流程图：![](img/img.png)
+  看完流程图，我们应该思考一下：如果让你去设计一个 IOC 容器，你会怎么做？首先我肯定会提供一个入口
+  （AnnotationConfigApplicationContext ）给用户使用，然后需要去初始化一系列的工具组件（compont？）：
+  ①：果我想生成 bean 对象，那么就需要一个 beanFactory 工厂（DefaultListableBeanFactory）；
+  ②：果我想对加了特定注解（如 @Service、@Repository）的类进行读取转化成 BeanDefinition 对象（BeanDefinition 是 
+  Spring 中极其重要的一个概念，它存储了 bean 对象的所有特征信息，如是否单例，是否懒加载，factoryBeanName 等），
+  那么就需要一个注解配置读取器（AnnotatedBeanDefinitionReader）；
+  ③：果我想对用户指定的包目录进行扫描查找 bean 对象，那么还需要一个路径扫描器（ClassPathBeanDefinitionScanner）。
+  
 **Spring Boot**
-* [官方网站](http://projects.spring.io/spring-boot/)
 * [《Spring Boot基础教程》](http://blog.didispace.com/Spring-Boot%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/)
 
 **Spring Cloud**
-
 * [Spring Boot 中文索引站](http://springboot.fun/)
 * [Spring Cloud 中文文档](https://springcloud.cc/)
 * [《Spring Cloud基础教程》](http://blog.didispace.com/Spring-Cloud%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/)
