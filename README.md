@@ -1370,13 +1370,13 @@ TODO
 ### Spring 家族
 **Spring**
 * [Spring 简明教程](https://www.w3cschool.cn/wkspring/)
-* spring源码分析
+* spring源码分析（5.2.20.RELEASE）
   
-  * spring初始化流程：因为是基于 java-config技术(就是spring注解的意思) 分析源码，所以这里的入口是 
-  AnnotationConfigApplicationContext(extends GenericApplicationContext(extends AbstractApplicationContext implements BeanDefinitionRegistry) implements AnnotationConfigRegistry) ，如果是使用 xml 分析，那么入口即为 
-  ClassPathXmlApplicationContext ，它们俩的共同特征便是都继承了 AbstractApplicationContext 
-  类，而大名鼎鼎的 refresh 方法便是在这个类中定义的，接着分析 AnnotationConfigApplicationContext 
-  类，可以绘制成如下流程图：![](img/img.png)
+  * spring初始化流程：如果是基于 java-config 技术(就是spring注解的意思) 分析源码，入口是 
+  AnnotationConfigApplicationContext，继承实现关系如下图：![](img/AnnotationConfigApplicationContext.png)使用 xml 分析，
+  入口即为 ClassPathXmlApplicationContext ，继承实现关系如下图：![](img/ClassPathXmlApplicationContext.png)它们俩的共同特征
+  便是都间接继承了 AbstractApplicationContext 类，而大名鼎鼎的 refresh 方法便是在这个类中定义的，接着分析 
+  AnnotationConfigApplicationContext 类，可以绘制成如下流程图：![](img/img.png)
   看完流程图，我们应该思考一下：如果让你去设计一个 IoC 容器，你会怎么做？首先我肯定会提供一个入口
   （AnnotationConfigApplicationContext ）给用户使用，然后需要去初始化一系列的工具组件（compont？）：
   ①：如果我想生成 bean 对象，那么就需要一个 beanFactory 工厂（DefaultListableBeanFactory）；
