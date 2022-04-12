@@ -765,6 +765,12 @@ APM —  Application Performance Management
 #### 回收策略
 * [《redis的回收策略》](https://blog.csdn.net/qq_29108585/article/details/63251491)
 
+#### 实践中的一些问题
+* redis和数据库双写一致性的解决方案
+
+	crud中只有update需要保证双写一致性。可以用分布式事务把删redis和更新数据库放到一个事务中，事务期间其它修改线程和读取线程均不可以介入
+（强一致性）
+
 ### Tair
 
 * [官方网站](https://github.com/alibaba/tair)
@@ -1384,7 +1390,16 @@ TODO
   Spring 中极其重要的一个概念，它存储了 bean 对象的所有特征信息，如是否单例，是否懒加载，factoryBeanName 等），
   那么就需要一个注解配置读取器（AnnotatedBeanDefinitionReader）；
   ③：如果我想对用户指定的包目录进行扫描查找 bean 对象，那么还需要一个路径扫描器（ClassPathBeanDefinitionScanner）。
-  
+  ps图中的黄色备注可以不看，只是在这里明确展示出来 Spring 的部分内置组件是何时何地添加到容器中的，关于组件的作用在后面的系列文章中会详细分析。
+  核心码剖析
+  考虑要是对所有代码都进行解析，那么文章篇幅会过长，因此这里只对核心内容进行源码层面的分析，凡是图中标注了 ①、②、③等字样的步骤，都可以理解为
+  是一个比较重要的步骤，下面开始进行详细分析。 
+  org.springframework.context.annotation.AnnotationConfigUtils#registerAnnotationConfigProcessors
+  根据图分析，代码运行到这里时候，Spring 容器已经构造完毕，那么就可以为容器添加一些内置组件了，其中最主要的组件便是 
+  ConfigurationClassPostProcessor 和 AutowiredAnnotationBeanPostProcessor ，前者是一个 beanFactory 后置处理器，用来完成 bean 
+  的扫描与注入工作，后者是一个 bean 后置处理器，用来完成 @AutoWired 自动注入。
+
+
 **Spring Boot**
 * [《Spring Boot基础教程》](http://blog.didispace.com/Spring-Boot%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/)
 
