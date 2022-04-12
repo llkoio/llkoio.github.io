@@ -1,16 +1,53 @@
-﻿- [Spring IOC容器启动流程源码解析(一)——容器概念详解及源码初探 ](https://www.cnblogs.com/takumicx/p/9757492.html#easyreader-0)
-  - [1.1 IOC容器到底是什么](https://www.cnblogs.com/takumicx/p/9757492.html#easyreader-1)
-  - [1.2 BeanFactory和ApplicationContext的联系以及区别](https://www.cnblogs.com/takumicx/p/9757492.html#easyreader-2)
-  - [1.3 解读IOC容器启动流程的意义](https://www.cnblogs.com/takumicx/p/9757492.html#easyreader-3)
-  - [1.4 如何有效的阅读源码](https://www.cnblogs.com/takumicx/p/9757492.html#easyreader-4)
-  - [2. 初探IOC容器启动源码](https://www.cnblogs.com/takumicx/p/9757492.html#easyreader-5)
-    - [2.1 启动容器的真正入口refresh()](https://www.cnblogs.com/takumicx/p/9757492.html#easyreader-6)
-    - [2.2 容器启动流程的不同阶段](https://www.cnblogs.com/takumicx/p/9757492.html#easyreader-7)
-  - [3 容器启动前的准备工作](https://www.cnblogs.com/takumicx/p/9757492.html#easyreader-8)
-  - [4. 总结](https://www.cnblogs.com/takumicx/p/9757492.html#easyreader-9)
+﻿[](https://www.cnblogs.com/ "开发者的网上家园")
 
-Table of Contents ▼
-# [Spring IOC容器启动流程源码解析(一)——容器概念详解及源码初探 ](https://www.cnblogs.com/takumicx/p/9757492.html)
+[首页](https://www.cnblogs.com/)
+
+[新闻](https://news.cnblogs.com/)
+
+[博问](https://q.cnblogs.com/)
+
+[专区](https://brands.cnblogs.com/huawei)
+
+[闪存](https://ing.cnblogs.com/)
+
+[班级](https://edu.cnblogs.com/)
+
+[](https://i.cnblogs.com/EditPosts.aspx?opt=1 "写随笔")[](https://passport.cnblogs.com/GetBlogApplyStatus.aspx "我的博客")[](https://msg.cnblogs.com/ "短消息")
+
+[](https://home.cnblogs.com/)
+
+[我的博客](https://passport.cnblogs.com/GetBlogApplyStatus.aspx)
+
+[我的园子](https://home.cnblogs.com/)
+
+[账号设置](https://account.cnblogs.com/settings/account)
+
+简洁模式 ...
+
+退出登录[](https://account.cnblogs.com/signup)
+
+[注册](https://account.cnblogs.com/signup) 登录
+
+![返回主页](Aspose.Words.fbccafc3-228e-46b4-b031-c34c15624b31.001.png)[](https://www.cnblogs.com/takumicx/)
+
+[takumiCX](https://www.cnblogs.com/takumicx/)
+
+[博客园](https://www.cnblogs.com/)
+
+[首页](https://www.cnblogs.com/takumicx/)
+
+[新随笔](https://i.cnblogs.com/EditPosts.aspx?opt=1)
+
+[联系](https://msg.cnblogs.com/send/takumiCX)
+
+订阅
+
+[管理](https://i.cnblogs.com/)
+
+随笔 - 30  文章 - 0  评论 - 83  阅读 - 30万
+
+[Spring IOC容器启动流程源码解析(一)——容器概念详解及源码初探 ](https://www.cnblogs.com/takumicx/p/9757492.html)
+
 目录
 
   - [1.1 IOC容器到底是什么](https://www.cnblogs.com/takumicx/p/9757492.html#11-ioc%E5%AE%B9%E5%99%A8%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88)
@@ -30,7 +67,7 @@ IOC和AOP是Spring框架的核心功能,而IOC又是AOP实现的基础,因而可
 **1.2 BeanFactory和ApplicationContext的联系以及区别**
 
 前面说到Spring中为容器类定义了一些接口规范,如下图所示
-![](Aspose.Words.bedd634e-b224-4972-80e5-142a73669497.001.png)
+![](Aspose.Words.fbccafc3-228e-46b4-b031-c34c15624b31.002.png)
 
 具体而言,Spring中的容器类可以分为两大类。
 
@@ -64,7 +101,7 @@ Spring框架经过多年的发展,随着功能特性的增加,其实现也越来
 ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 
 尽管只有短短的一行代码,但已经创建并启动了一个Spring的IOC容器。为了后面更好的理解,先来看下ClassPathXmlApplicationContext的类继承结构
-![](Aspose.Words.bedd634e-b224-4972-80e5-142a73669497.002.png)
+![](Aspose.Words.fbccafc3-228e-46b4-b031-c34c15624b31.003.png)
 
 关键的几个类已经用红色箭头标注了出来。
 
@@ -232,7 +269,7 @@ public void refresh() throws BeansException, IllegalStateException {
 **2.2 容器启动流程的不同阶段**
 
 为了更好的进行讲解,可以将容器启动的整个流程划分为以下五个阶段
-![](Aspose.Words.bedd634e-b224-4972-80e5-142a73669497.003.png)
+![](Aspose.Words.fbccafc3-228e-46b4-b031-c34c15624b31.004.png)
 
 **3 容器启动前的准备工作**
 
@@ -345,7 +382,7 @@ protected void initPropertySources() {
 
 若环境变量不存在则会抛出以下异常
 
-![](Aspose.Words.bedd634e-b224-4972-80e5-142a73669497.004.png)
+![](Aspose.Words.fbccafc3-228e-46b4-b031-c34c15624b31.005.png)
 
 总结下容器启动前的准备工作:主要是对容器状态进行标记,初始化环境变量信息并对必要的环境变量进行校验。
 
@@ -358,3 +395,219 @@ protected void initPropertySources() {
 - 3.对容器启动前的准备阶段进行了源码解读
 
 可以看到容器启动源码中对模板方法模式的合理运用。容器启动的流程以模板方法模式定义在了抽象容器类AbstractApplicationContext中,并留下了钩子函数供子类重写。用户实现自定义容器时,可以通过继承并重写钩子函数的方法对原有容器的功能进行扩展,而无需多做其他改动。这样既为用户扩展Spring容器开放了接口,又为用户屏蔽了容器实现的复杂性,很好的实现了Spring容器通用性和扩展性的统一。
+
+分类: [spring](https://www.cnblogs.com/takumicx/category/1315268.html)
+
+**标签: [源码](https://www.cnblogs.com/takumicx/tag/%E6%BA%90%E7%A0%81/), [spring](https://www.cnblogs.com/takumicx/tag/spring/)**
+
+**好文要顶** **关注我** **收藏该文** ![](Aspose.Words.fbccafc3-228e-46b4-b031-c34c15624b31.006.png)![](Aspose.Words.fbccafc3-228e-46b4-b031-c34c15624b31.006.png)
+
+![](Aspose.Words.fbccafc3-228e-46b4-b031-c34c15624b31.007.jpeg)[](https://home.cnblogs.com/u/takumicx/)
+
+[takumiCX](https://home.cnblogs.com/u/takumicx/)
+[关注 - 16](https://home.cnblogs.com/u/takumicx/followees/)
+[粉丝 - 131](https://home.cnblogs.com/u/takumicx/followers/)
+
++加关注
+
+0
+
+0
+
+[« ](https://www.cnblogs.com/takumicx/p/9698867.html)上一篇： [并发包下常见的同步工具类详解(CountDownLatch,CyclicBarrier,Semaphore)](https://www.cnblogs.com/takumicx/p/9698867.html "发布于 2018-09-25 14:19") 
+[» ](https://www.cnblogs.com/takumicx/p/9796601.html)下一篇： [设计模式中的多态——策略模式详解](https://www.cnblogs.com/takumicx/p/9796601.html "发布于 2018-10-16 11:14")
+
+posted @ 2018-10-09 15:28  [takumiCX](https://www.cnblogs.com/takumicx/)  阅读(4981)  评论(2)  [编辑](https://i.cnblogs.com/EditPosts.aspx?postid=9757492)  收藏  举报
+
+刷新评论[刷新页面](https://www.cnblogs.com/takumicx/p/9757492.html)[返回顶部](https://www.cnblogs.com/takumicx/p/9757492.html#top)
+
+登录后才能查看或发表评论，立即 登录 或者 [逛逛](https://www.cnblogs.com/) 博客园首页 
+
+[【推荐】百度智能云开发者赋能计划，云服务器4元起，域名1元起](https://cloud.baidu.com/campaign/2022developer/index.html?track=18708feb6fc4c4db36171b5d7d99f1509444b5c535f8dfc7#person)
+[【推荐】华为开发者专区，与开发者一起构建万物互联的智能世界](https://brands.cnblogs.com/huawei)
+
+**编辑推荐：** 
+· [后端思维之数据库性能优化方案](https://www.cnblogs.com/skychen1218/p/16059148.html) 
+· [ASP.NET Core WebApi 返回结果统一包装实践 ](https://www.cnblogs.com/wucy/p/16124449.html)
+· [asp.net core启动源码以及监听，到处理请求响应的过程 ](https://www.cnblogs.com/1996-Chinese-Chen/p/16117062.html)
+· [ASP.NET Core 高性能服务器 HTTP.SYS](https://www.cnblogs.com/artech/p/inside-asp-net-core-6-33.html) 
+· [中小团队的技术负责人如何做好技术团队建设](https://www.cnblogs.com/xiaxiaolu/p/16114880.html) 
+
+**最新新闻**： 
+· [马毅教授7年力作，稀疏模型教科书正式上架，中文版预计明年问世](https://news.cnblogs.com/n/718649/) 
+· [用AI识破「俄乌冲突」假相！国内首家军事搜索平台，4个核心算法搞定开源情报](https://news.cnblogs.com/n/718648/) 
+· [2022年苹果WWDC定于6月开办，全家桶软件系统均计划升级](https://news.cnblogs.com/n/718647/) 
+· [柳叶刀：港大研究发现新冠病毒可通过动物传人](https://news.cnblogs.com/n/718646/) 
+· [重磅：紫光华智发布新一代AI视觉平台](https://news.cnblogs.com/n/718645/) 
+» [更多新闻...](https://news.cnblogs.com/ "IT 新闻")
+
+公告
+
+昵称： [takumiCX ](https://home.cnblogs.com/u/takumicx/)
+园龄： [3年10个月 ](https://home.cnblogs.com/u/takumicx/ "入园时间：2018-06-13")
+粉丝： [131 ](https://home.cnblogs.com/u/takumicx/followers/)
+关注： [16 ](https://home.cnblogs.com/u/takumicx/followees/)
+
++加关注
+
+||||||||
+| :- | :- | :- | :- | :- | :- | :- |
+
+|<|2022年4月|>|
+| :- | :-: | -: |
+
+||||||||
+| :- | :- | :- | :- | :- | :- | :- |
+|**日**|**一**|**二**|**三**|**四**|**五**|**六**|
+|27|28|29|30|31|1 |2 |
+|3 |4 |5 |6 |7 |8 |9 |
+|10 |11 |12 |13 |14 |15 |16 |
+|17 |18 |19 |20 |21 |22 |23 |
+|24 |25 |26 |27 |28 |29 |30 |
+|1 |2 |3 |4 |5 |6 |7 |
+搜索
+
+`      `MACROBUTTON DoFieldClick  [找找看]
+
+`      `MACROBUTTON DoFieldClick  [谷歌搜索]
+
+常用链接 
+
+[我的随笔](https://www.cnblogs.com/takumicx/p/ "我的博客的随笔列表")
+
+[我的评论](https://www.cnblogs.com/takumicx/MyComments.html "我的发表过的评论列表")
+
+[我的参与](https://www.cnblogs.com/takumicx/OtherPosts.html "我评论过的随笔列表")
+
+[最新评论](https://www.cnblogs.com/takumicx/RecentComments.html "我的博客的评论列表")
+
+[我的标签](https://www.cnblogs.com/takumicx/tag/ "我的博客的标签列表")
+
+我的标签
+
+[并发(8)](https://www.cnblogs.com/takumicx/tag/%E5%B9%B6%E5%8F%91/)
+
+[源码(5)](https://www.cnblogs.com/takumicx/tag/%E6%BA%90%E7%A0%81/)
+
+[spring(3)](https://www.cnblogs.com/takumicx/tag/spring/)
+
+[分布式(3)](https://www.cnblogs.com/takumicx/tag/%E5%88%86%E5%B8%83%E5%BC%8F/)
+
+[CAS(3)](https://www.cnblogs.com/takumicx/tag/CAS/)
+
+[微服务(2)](https://www.cnblogs.com/takumicx/tag/%E5%BE%AE%E6%9C%8D%E5%8A%A1/)
+
+[设计模式(2)](https://www.cnblogs.com/takumicx/tag/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/)
+
+[aop(1)](https://www.cnblogs.com/takumicx/tag/aop/)
+
+[springboot(1)](https://www.cnblogs.com/takumicx/tag/springboot/)
+
+[grpc(1)](https://www.cnblogs.com/takumicx/tag/grpc/)
+
+[更多](https://www.cnblogs.com/takumicx/tag/)
+
+随笔分类 
+
+[java基础大过天(2)](https://www.cnblogs.com/takumicx/category/1260647.html)
+
+[rpc(1)](https://www.cnblogs.com/takumicx/category/1354966.html)
+
+[spring(4)](https://www.cnblogs.com/takumicx/category/1315268.html)
+
+[并发(11)](https://www.cnblogs.com/takumicx/category/1252977.html)
+
+[大数据(1)](https://www.cnblogs.com/takumicx/category/1240586.html)
+
+[分布式(1)](https://www.cnblogs.com/takumicx/category/1350063.html)
+
+[设计模式(9)](https://www.cnblogs.com/takumicx/category/1240585.html)
+
+[数据库(1)](https://www.cnblogs.com/takumicx/category/1347164.html)
+
+随笔档案 
+
+[2018年12月(3)](https://www.cnblogs.com/takumicx/archive/2018/12.html)
+
+[2018年11月(3)](https://www.cnblogs.com/takumicx/archive/2018/11.html)
+
+[2018年10月(3)](https://www.cnblogs.com/takumicx/archive/2018/10.html)
+
+[2018年9月(1)](https://www.cnblogs.com/takumicx/archive/2018/09.html)
+
+[2018年8月(5)](https://www.cnblogs.com/takumicx/archive/2018/08.html)
+
+[2018年7月(14)](https://www.cnblogs.com/takumicx/archive/2018/07.html)
+
+[2018年6月(1)](https://www.cnblogs.com/takumicx/archive/2018/06.html)
+
+阅读排行榜
+
+[1. ReentrantLock(重入锁)功能详解和应用演示(95837) ](https://www.cnblogs.com/takumicx/p/9338983.html)
+
+[2. 数据库事务的概念及其实现原理(81819) ](https://www.cnblogs.com/takumicx/p/9998844.html)
+
+[3. 从源码角度彻底理解ReentrantLock(重入锁)(26271) ](https://www.cnblogs.com/takumicx/p/9402021.html)
+
+[4. Zookeeper的基本概念和重要特性(14684) ](https://www.cnblogs.com/takumicx/p/9508706.html)
+
+[5. 深入理解Spring的容器内事件发布监听机制(12192) ](https://www.cnblogs.com/takumicx/p/9972461.html)
+
+评论排行榜
+
+[1. 从源码角度彻底理解ReentrantLock(重入锁)(21) ](https://www.cnblogs.com/takumicx/p/9402021.html)
+
+[2. ReentrantLock(重入锁)功能详解和应用演示(14) ](https://www.cnblogs.com/takumicx/p/9338983.html)
+
+[3. 数据库事务的概念及其实现原理(12) ](https://www.cnblogs.com/takumicx/p/9998844.html)
+
+[4. 轻量级的同步机制——volatile语义详解(可见性保证+禁止指令重排)(9) ](https://www.cnblogs.com/takumicx/p/9302398.html)
+
+[5. 深入理解Spring的容器内事件发布监听机制(5) ](https://www.cnblogs.com/takumicx/p/9972461.html)
+
+推荐排行榜
+
+[1. ReentrantLock(重入锁)功能详解和应用演示(28) ](https://www.cnblogs.com/takumicx/p/9338983.html)
+
+[2. 数据库事务的概念及其实现原理(25) ](https://www.cnblogs.com/takumicx/p/9998844.html)
+
+[3. 从源码角度彻底理解ReentrantLock(重入锁)(16) ](https://www.cnblogs.com/takumicx/p/9402021.html)
+
+[4. 深入理解Spring的容器内事件发布监听机制(7) ](https://www.cnblogs.com/takumicx/p/9972461.html)
+
+[5. 分布式系统(微服务架构)的一致性和幂等性问题相关概念解析(4) ](https://www.cnblogs.com/takumicx/p/10021538.html)
+
+最新评论
+
+[1. Re:数据库事务的概念及其实现原理](https://www.cnblogs.com/takumicx/p/9998844.html)
+
+本质
+
+--auh
+
+[2. Re:轻量级的同步机制——volatile语义详解(可见性保证+禁止指令重排)](https://www.cnblogs.com/takumicx/p/9302398.html)
+
+i无法保证线程安全或者原子操作是因为i本身有几个操作， 获取i的值 对获取的值进行修改 在第一步读取的时候，由于happen-before原则，读取会去内存读，然后拿到这个值之后进行第二步写的操作，这...
+
+--最灵活的胖子
+
+[3. Re:从源码角度彻底理解ReentrantLock(重入锁)](https://www.cnblogs.com/takumicx/p/9402021.html)
+
+楼主太强了！学习了！
+
+--星辰大海21
+
+[4. Re:SpringBoot中使用LoadTimeWeaving技术实现AOP功能](https://www.cnblogs.com/takumicx/p/10150344.html)
+
+@DylanVanh <?xml version="1.0" encoding="UTF-8"?> <project xmlns=" xmlns:xsi=" xsi:schemaLocation=" ...
+
+--Getup233
+
+[5. Re:Spring IOC容器启动流程源码解析(四)——初始化单实例bean阶段](https://www.cnblogs.com/takumicx/p/10162811.html)
+
+6
+
+--大都督CM
+
+Copyright © 2022 takumiCX 
+Powered by .NET 6 on Kubernetes
