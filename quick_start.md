@@ -1,6 +1,5 @@
 xingshaocheng 的 https://github.com/xingshaocheng/architect-awesome 是初始版本，我以此为基础进行更新
 <h1>《后端架构师技术图谱》</h1>
-[quick_start.md](./quick_start.md)
 
 推荐一个在线搜课程的神器，“[课程搜](https://www.kcsou.com)”：[https://www.kcsou.com/s_架构师/](https://www.kcsou.com/s_%E6%9E%B6%E6%9E%84%E5%B8%88/)
 
